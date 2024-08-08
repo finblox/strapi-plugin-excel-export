@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import { useTheme, lightTheme, darkTheme } from '@strapi/design-system';
+import { isEqual } from "lodash";
 
 import axios from "axios";
 import {
@@ -16,6 +18,8 @@ import {
 
 const HomePage = () => {
   const baseUrl = process.env.STRAPI_ADMIN_BACKEND_URL;
+
+  const theme = isEqual(useTheme().colors, lightTheme.colors) ? 'light' : 'dark';
 
   const [dropDownData, setDropDownData] = useState([]);
 
@@ -217,6 +221,7 @@ const HomePage = () => {
                   <Box className="ml-auto">
                     <DataTable
                       pagination
+                      theme={theme}
                       columns={columnRestructure}
                       data={tableData}
                       progressPending={loading}
